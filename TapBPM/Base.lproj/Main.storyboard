@@ -15,13 +15,29 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to Start" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R9a-zx-Rdd">
+                                <rect key="frame" x="185.5" y="270" width="229" height="60"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="50"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="R9a-zx-Rdd" secondAttribute="centerX" id="NFE-RM-oFO"/>
+                            <constraint firstAttribute="centerY" secondItem="R9a-zx-Rdd" secondAttribute="centerY" id="gmn-Lg-tYs"/>
+                        </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="bn0-od-vuG" appends="YES" id="Tn5-3i-Yzj"/>
                         </connections>
                     </view>
+                    <connections>
+                        <outlet property="bpmLabel" destination="R9a-zx-Rdd" id="UgW-dW-cFb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="bn0-od-vuG">
