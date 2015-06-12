@@ -17,18 +17,31 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to Start" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R9a-zx-Rdd">
-                                <rect key="frame" x="185.5" y="270" width="229" height="60"/>
+                                <rect key="frame" x="185" y="270" width="229" height="60"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="50"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l0Z-Np-Wz8">
+                                <rect key="frame" x="274.5" y="554" width="51" height="36"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Reset">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="reset:" destination="BYZ-38-t0r" eventType="touchUpInside" id="q4e-tJ-FLL"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="R9a-zx-Rdd" secondAttribute="centerX" id="NFE-RM-oFO"/>
+                            <constraint firstAttribute="centerX" secondItem="l0Z-Np-Wz8" secondAttribute="centerX" id="c1K-BS-Nsl"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="l0Z-Np-Wz8" secondAttribute="bottom" constant="10" id="dmq-EL-Sxb"/>
                             <constraint firstAttribute="centerY" secondItem="R9a-zx-Rdd" secondAttribute="centerY" id="gmn-Lg-tYs"/>
                         </constraints>
                         <connections>

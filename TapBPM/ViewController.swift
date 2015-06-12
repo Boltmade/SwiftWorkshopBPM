@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    //Keep a reference to our label
+    //Keep a reference to our labelw
     @IBOutlet weak var bpmLabel:UILabel!;
     
     //Create a place to store each of our bpms so we can get an average later
@@ -23,20 +23,26 @@ class ViewController: UIViewController {
         
         let now = NSDate();
         //Check to see if we have a previous date stored
-        if let date = previousDate
-        {
+        if let date = previousDate {
+            
             let bpm = 60/now.timeIntervalSinceDate(date);
             samples += [bpm];
             
             //Grab the average and update the label
             let averageBPM = Int(average(samples));
             bpmLabel.text = String(averageBPM);
-        }
-        else
-        {
+            
+        } else {
+            
             bpmLabel.text = "First Beat";
         }
         previousDate = now;
+    }
+    
+    @IBAction func reset(sender:UIButton) {
+        previousDate = nil;
+        samples = [];
+        bpmLabel.text = "Tap to Start";
     }
 }
 
