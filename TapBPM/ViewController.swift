@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import QuartzCore
 
 class ViewController: UIViewController {
     
@@ -20,7 +21,17 @@ class ViewController: UIViewController {
     private var previousDate:NSDate?;
 
     @IBAction func didTap(recognizer:UIGestureRecognizer) {
-        
+        trackBPM()
+        showTouch(recognizer.locationInView(self.view))
+    }
+    
+    @IBAction func reset(sender:UIButton) {
+        previousDate = nil;
+        samples = [];
+        bpmLabel.text = "Tap to Start";
+    }
+    
+    func trackBPM() {
         let now = NSDate();
         //Check to see if we have a previous date stored
         if let date = previousDate {
@@ -39,10 +50,13 @@ class ViewController: UIViewController {
         previousDate = now;
     }
     
-    @IBAction func reset(sender:UIButton) {
-        previousDate = nil;
-        samples = [];
-        bpmLabel.text = "Tap to Start";
+    func showTouch(touchLocation : CGPoint) {
+        let circle = UIView(frame: CGRectMake(0, 0, 50, 50))
+        circle.center = touchLocation
+        circle.layer.cornerRadius = circle.frame.size.width/2
+        circle.backgroundColor = UIColor(red: 239.0/255.0, green: 65.0/255.0, blue: 54.0/255.0, alpha: 0.3)
+        circle.userInteractionEnabled = false
+        view.insertSubview(circle, belowSubview: bpmLabel)
     }
 }
 
@@ -55,4 +69,3 @@ func average(array:[Double]) -> Double
     }
     return total/Double(array.count);
 }
-
