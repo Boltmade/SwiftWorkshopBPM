@@ -57,6 +57,17 @@ class ViewController: UIViewController {
         circle.backgroundColor = UIColor(red: 239.0/255.0, green: 65.0/255.0, blue: 54.0/255.0, alpha: 0.3)
         circle.userInteractionEnabled = false
         view.insertSubview(circle, belowSubview: bpmLabel)
+        
+        UIView.animateWithDuration(
+            2.0,
+            delay: 0.0,
+            options: UIViewAnimationOptions.AllowAnimatedContent | UIViewAnimationOptions.CurveEaseOut,
+            animations: { () -> Void in
+                circle.transform = CGAffineTransformMakeScale(10, 10)
+                circle.alpha = 0
+            }) { (completed) -> Void in
+                circle.removeFromSuperview()
+        }
     }
 }
 
