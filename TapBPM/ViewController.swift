@@ -8,6 +8,7 @@
 
 import UIKit
 import QuartzCore
+import AVFoundation
 
 class ViewController: UIViewController {
     
@@ -19,10 +20,16 @@ class ViewController: UIViewController {
     
     //We declare a private var that stores a previous date
     private var previousDate:NSDate?;
-
+    
+    //Sound effect file url and audio player
+    //Sound pulled from http://www.freesfx.co.uk/sfx/dripping
+    let soundUrl = NSBundle.mainBundle().URLForResource("WaterDrop", withExtension: "mp3")
+    var audioPlayer : AVAudioPlayer?
+    
     @IBAction func didTap(recognizer:UIGestureRecognizer) {
         trackBPM()
         showTouch(recognizer.locationInView(self.view))
+        makeSound()
     }
     
     @IBAction func reset(sender:UIButton) {
@@ -68,6 +75,12 @@ class ViewController: UIViewController {
             }) { (completed) -> Void in
                 circle.removeFromSuperview()
         }
+    }
+    
+    func makeSound() {
+        self.audioPlayer = AVAudioPlayer(contentsOfURL: self.soundUrl, error: nil)
+        self.audioPlayer?.prepareToPlay()
+        self.audioPlayer?.play()
     }
 }
 
