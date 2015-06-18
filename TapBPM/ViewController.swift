@@ -54,7 +54,7 @@ class ViewController: UIViewController {
         let circle = UIView(frame: CGRectMake(0, 0, 50, 50))
         circle.center = touchLocation
         circle.layer.cornerRadius = circle.frame.size.width/2
-        circle.backgroundColor = UIColor(red: 239.0/255.0, green: 65.0/255.0, blue: 54.0/255.0, alpha: 0.3)
+        circle.backgroundColor = UIColor.randomColor(0.3)
         circle.userInteractionEnabled = false
         view.insertSubview(circle, belowSubview: bpmLabel)
         

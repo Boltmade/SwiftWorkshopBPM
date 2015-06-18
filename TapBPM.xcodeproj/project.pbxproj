@@ -13,6 +13,7 @@
 		147A31301B2A28E4009705B5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 147A312F1B2A28E4009705B5 /* Images.xcassets */; };
 		147A31331B2A28E4009705B5 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 147A31311B2A28E4009705B5 /* LaunchScreen.xib */; };
 		147A313F1B2A28E4009705B5 /* TapBPMTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 147A313E1B2A28E4009705B5 /* TapBPMTests.swift */; };
+		5E539BD31B334A3E006A1896 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E539BD21B334A3E006A1896 /* UIColorExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +37,7 @@
 		147A31381B2A28E4009705B5 /* TapBPMTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TapBPMTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		147A313D1B2A28E4009705B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		147A313E1B2A28E4009705B5 /* TapBPMTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapBPMTests.swift; sourceTree = "<group>"; };
+		5E539BD21B334A3E006A1896 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 			children = (
 				147A31281B2A28E4009705B5 /* AppDelegate.swift */,
 				147A312A1B2A28E4009705B5 /* ViewController.swift */,
+				5E539BD21B334A3E006A1896 /* UIColorExtension.swift */,
 				147A312C1B2A28E4009705B5 /* Main.storyboard */,
 				147A312F1B2A28E4009705B5 /* Images.xcassets */,
 				147A31311B2A28E4009705B5 /* LaunchScreen.xib */,
@@ -214,6 +217,7 @@
 			files = (
 				147A312B1B2A28E4009705B5 /* ViewController.swift in Sources */,
 				147A31291B2A28E4009705B5 /* AppDelegate.swift in Sources */,
+				5E539BD31B334A3E006A1896 /* UIColorExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
