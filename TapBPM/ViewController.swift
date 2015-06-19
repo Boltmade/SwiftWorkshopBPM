@@ -26,6 +26,9 @@ class ViewController: UIViewController {
     let soundUrl = NSBundle.mainBundle().URLForResource("WaterDrop", withExtension: "mp3")
     var audioPlayer : AVAudioPlayer?
     
+    //Mute
+    var isSoundOn = true
+    
     @IBAction func didTap(recognizer:UIGestureRecognizer) {
         trackBPM()
         showTouch(recognizer.locationInView(self.view))
@@ -36,6 +39,10 @@ class ViewController: UIViewController {
         previousDate = nil;
         samples = [];
         bpmLabel.text = "Tap to Start";
+    }
+    
+    @IBAction func toggleSound(sender: UISwitch) {
+        self.isSoundOn = sender.on
     }
     
     func trackBPM() {
@@ -78,9 +85,11 @@ class ViewController: UIViewController {
     }
     
     func makeSound() {
-        self.audioPlayer = AVAudioPlayer(contentsOfURL: self.soundUrl, error: nil)
-        self.audioPlayer?.prepareToPlay()
-        self.audioPlayer?.play()
+        if (self.isSoundOn) {
+            self.audioPlayer = AVAudioPlayer(contentsOfURL: self.soundUrl, error: nil)
+            self.audioPlayer?.prepareToPlay()
+            self.audioPlayer?.play()
+        }
     }
 }
 
