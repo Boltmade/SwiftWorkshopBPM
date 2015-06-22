@@ -26,6 +26,12 @@ class ViewController: UIViewController {
     let soundUrl = NSBundle.mainBundle().URLForResource("WaterDrop", withExtension: "mp3")
     var audioPlayer : AVAudioPlayer?
     
+    //Metronome effect file and audio player
+    //Sound pulled from http://www.freesfx.co.uk/sfx/click?p=5
+    let metronomeSoundURL = NSBundle.mainBundle().URLForResource("Pop", withExtension: "mp3")
+    var metronomePlayer : AVAudioPlayer?
+    var metronomeRepeatTimer : NSTimer?
+    
     //Mute
     var isSoundOn = true
     
@@ -33,11 +39,14 @@ class ViewController: UIViewController {
         trackBPM()
         showTouch(recognizer.locationInView(self.view))
         makeSound()
+        updateMetronome()
     }
     
     @IBAction func reset(sender:UIButton) {
         previousDate = nil;
         samples = [];
+        self.metronomeRepeatTimer?.invalidate()
+        self.metronomeRepeatTimer = nil
         bpmLabel.text = "Tap to Start";
     }
     
@@ -90,6 +99,23 @@ class ViewController: UIViewController {
             self.audioPlayer?.prepareToPlay()
             self.audioPlayer?.play()
         }
+    }
+    
+    func updateMetronome() {
+        if let averageBPM = self.bpmLabel.text?.toInt() {
+            self.metronomeRepeatTimer?.invalidate()
+            self.metronomeRepeatTimer = nil
+            
+            self.metronomePlayer = AVAudioPlayer(contentsOfURL: self.metronomeSoundURL, error: nil)
+            self.metronomePlayer?.prepareToPlay()
+            self.metronomePlayer?.play()
+            let metronomeInterval = NSTimeInterval(60.0/Double(averageBPM))
+            self.metronomeRepeatTimer = NSTimer.scheduledTimerWithTimeInterval(metronomeInterval, target: self, selector: "metronomeTick", userInfo: nil, repeats: true)
+        }
+    }
+    
+    func metronomeTick() {
+        self.metronomePlayer?.play()
     }
 }
 
