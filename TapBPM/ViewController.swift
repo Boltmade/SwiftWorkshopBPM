@@ -162,9 +162,12 @@ class ViewController: UIViewController {
 //Loop through and average all of the values in an aray
 func average(array:[Double]) -> Double
 {
-    var total = 0.0;
-    for value in array {
-        total += value;
+    if array.count == 0 {
+        return 0
     }
-    return total/Double(array.count);
+    
+    let total = array.reduce(0) { (combined, number) in
+        combined + number
+        }
+    return total/Double(array.count)
 }
