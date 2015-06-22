@@ -59,6 +59,17 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="DD7-hI-6Qs">
+                                <rect key="frame" x="207" y="20" width="185" height="29"/>
+                                <segments>
+                                    <segment title="Red"/>
+                                    <segment title="Second"/>
+                                    <segment title=""/>
+                                </segments>
+                                <connections>
+                                    <action selector="changeColor:" destination="BYZ-38-t0r" eventType="valueChanged" id="DYE-dY-FFZ"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -74,6 +85,8 @@
                             <constraint firstItem="dJk-0t-U2R" firstAttribute="centerY" secondItem="ojb-DJ-ake" secondAttribute="centerY" id="f5y-6k-NYX"/>
                             <constraint firstAttribute="centerY" secondItem="R9a-zx-Rdd" secondAttribute="centerY" id="gmn-Lg-tYs"/>
                             <constraint firstItem="W3p-By-TDf" firstAttribute="top" secondItem="dJk-0t-U2R" secondAttribute="bottom" constant="8" id="uVk-eR-3oL"/>
+                            <constraint firstAttribute="centerX" secondItem="DD7-hI-6Qs" secondAttribute="centerX" constant="0.5" id="gU2-Pk-quv"/>
+                            <constraint firstItem="DD7-hI-6Qs" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="s8t-Qm-2D3"/>
                             <constraint firstItem="W3p-By-TDf" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="xbD-en-8yo"/>
                             <constraint firstItem="W3p-By-TDf" firstAttribute="leading" secondItem="4As-LL-kPS" secondAttribute="trailing" constant="8" id="y77-U8-TL3"/>
                         </constraints>
@@ -83,6 +96,7 @@
                     </view>
                     <connections>
                         <outlet property="bpmLabel" destination="R9a-zx-Rdd" id="UgW-dW-cFb"/>
+                        <outlet property="colorChooser" destination="DD7-hI-6Qs" id="CMA-6S-4DB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

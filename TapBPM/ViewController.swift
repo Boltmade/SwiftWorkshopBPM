@@ -10,6 +10,21 @@ import UIKit
 import QuartzCore
 import AVFoundation
 
+enum ColorOption : String {
+    case Red = "Red", Blue = "Blue", Random = "Random"
+    static let allValues = [Red, Blue, Random]
+    static func color(option : ColorOption) -> UIColor {
+        switch(option) {
+        case Red:
+            return UIColor.redColor()
+        case Blue:
+            return UIColor.blueColor()
+        case Random:
+            return UIColor.randomColor(0.3)
+        }
+    }
+}
+
 class ViewController: UIViewController {
     
     //Keep a reference to our labelw
@@ -36,6 +51,21 @@ class ViewController: UIViewController {
     var isTapSoundOn = true
     var isMetronomeOn = true
     
+    //Current color for touch events
+    var currentColor = ColorOption.allValues.first!
+    
+    @IBOutlet weak var colorChooser: UISegmentedControl!
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        var i = 0
+        for colorOption in ColorOption.allValues {
+                self.colorChooser.setTitle(colorOption.rawValue, forSegmentAtIndex: i++)
+        }
+    }
+    
     @IBAction func didTap(recognizer:UIGestureRecognizer) {
         trackBPM()
         showTouch(recognizer.locationInView(self.view))
@@ -57,6 +87,10 @@ class ViewController: UIViewController {
     
     @IBAction func toggleMetronome(sender: UISwitch) {
         self.isMetronomeOn = sender.on
+    }
+    
+    @IBAction func changeColor(sender: UISegmentedControl) {
+        self.currentColor = ColorOption.allValues[sender.selectedSegmentIndex]
     }
     
     func trackBPM() {
@@ -82,7 +116,7 @@ class ViewController: UIViewController {
         let circle = UIView(frame: CGRectMake(0, 0, 50, 50))
         circle.center = touchLocation
         circle.layer.cornerRadius = circle.frame.size.width/2
-        circle.backgroundColor = UIColor.randomColor(0.3)
+        circle.backgroundColor = ColorOption.color(self.currentColor)
         circle.userInteractionEnabled = false
         view.insertSubview(circle, belowSubview: bpmLabel)
         
