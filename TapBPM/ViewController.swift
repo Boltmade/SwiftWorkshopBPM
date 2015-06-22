@@ -23,8 +23,8 @@ class ViewController: UIViewController {
     
     //Sound effect file url and audio player
     //Sound pulled from http://www.freesfx.co.uk/sfx/dripping
-    let soundUrl = NSBundle.mainBundle().URLForResource("WaterDrop", withExtension: "mp3")
-    var audioPlayer : AVAudioPlayer?
+    let tapSoundUrl = NSBundle.mainBundle().URLForResource("WaterDrop", withExtension: "mp3")
+    var tapSoundPlayer : AVAudioPlayer?
     
     //Metronome effect file and audio player
     //Sound pulled from http://www.freesfx.co.uk/sfx/click?p=5
@@ -33,12 +33,13 @@ class ViewController: UIViewController {
     var metronomeRepeatTimer : NSTimer?
     
     //Mute
-    var isSoundOn = true
+    var isTapSoundOn = true
+    var isMetronomeOn = true
     
     @IBAction func didTap(recognizer:UIGestureRecognizer) {
         trackBPM()
         showTouch(recognizer.locationInView(self.view))
-        makeSound()
+        makeTapSound()
         updateMetronome()
     }
     
@@ -50,8 +51,12 @@ class ViewController: UIViewController {
         bpmLabel.text = "Tap to Start";
     }
     
-    @IBAction func toggleSound(sender: UISwitch) {
-        self.isSoundOn = sender.on
+    @IBAction func toggleTapSound(sender: UISwitch) {
+        self.isTapSoundOn = sender.on
+    }
+    
+    @IBAction func toggleMetronome(sender: UISwitch) {
+        self.isMetronomeOn = sender.on
     }
     
     func trackBPM() {
@@ -93,11 +98,11 @@ class ViewController: UIViewController {
         }
     }
     
-    func makeSound() {
-        if (self.isSoundOn) {
-            self.audioPlayer = AVAudioPlayer(contentsOfURL: self.soundUrl, error: nil)
-            self.audioPlayer?.prepareToPlay()
-            self.audioPlayer?.play()
+    func makeTapSound() {
+        if (self.isTapSoundOn) {
+            self.tapSoundPlayer = AVAudioPlayer(contentsOfURL: self.tapSoundUrl, error: nil)
+            self.tapSoundPlayer?.prepareToPlay()
+            self.tapSoundPlayer?.play()
         }
     }
     
@@ -108,14 +113,15 @@ class ViewController: UIViewController {
             
             self.metronomePlayer = AVAudioPlayer(contentsOfURL: self.metronomeSoundURL, error: nil)
             self.metronomePlayer?.prepareToPlay()
-            self.metronomePlayer?.play()
             let metronomeInterval = NSTimeInterval(60.0/Double(averageBPM))
             self.metronomeRepeatTimer = NSTimer.scheduledTimerWithTimeInterval(metronomeInterval, target: self, selector: "metronomeTick", userInfo: nil, repeats: true)
         }
     }
     
     func metronomeTick() {
-        self.metronomePlayer?.play()
+        if (self.isMetronomeOn) {
+            self.metronomePlayer?.play()
+        }
     }
 }
 
