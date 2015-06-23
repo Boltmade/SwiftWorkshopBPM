@@ -78,7 +78,7 @@ class ViewController: UIViewController {
         samples = [];
         self.metronomeRepeatTimer?.invalidate()
         self.metronomeRepeatTimer = nil
-        bpmLabel.text = "Tap to Start";
+        updateLabel()
     }
     
     @IBAction func toggleTapSound(sender: UISwitch) {
@@ -101,15 +101,10 @@ class ViewController: UIViewController {
             let bpm = 60/now.timeIntervalSinceDate(date);
             samples += [bpm];
             
-            //Grab the average and update the label
-            let averageBPM = Int(average(samples));
-            bpmLabel.text = String(averageBPM);
-            
-        } else {
-            
-            bpmLabel.text = "First Beat";
         }
         previousDate = now;
+
+        updateLabel()
     }
     
     func showTouch(touchLocation : CGPoint) {
@@ -157,17 +152,39 @@ class ViewController: UIViewController {
             self.metronomePlayer?.play()
         }
     }
+    
+    func labelMetadata() -> (text: String, color: UIColor) {
+        let currentBPM = bpm(self.samples)
+        switch ((currentBPM, self.previousDate)) {
+        case (.None, .None):
+            return ("Tap to Start", UIColor.blackColor())
+        case (.None, let previous):
+            return ("First Beat", UIColor.blackColor())
+        case (.Some(0...60), let previous):
+            return (String(currentBPM!), UIColor.greenColor())
+        case (.Some(61...120), let previous):
+            return (String(currentBPM!), UIColor.orangeColor())
+        default:
+            return (String(currentBPM!), UIColor.purpleColor())
+        }
+    }
+    
+    func updateLabel() {
+        let labelMetadata = self.labelMetadata()
+        bpmLabel.text = labelMetadata.text
+        bpmLabel.textColor = labelMetadata.color
+    }
 }
 
 //Loop through and average all of the values in an aray
-func average(array:[Double]) -> Double
+func bpm(array:[Double]) -> Int?
 {
     if array.count == 0 {
-        return 0
+        return nil
     }
     
     let total = array.reduce(0) { (combined, number) in
         combined + number
         }
-    return total/Double(array.count)
+    return Int(total/Double(array.count))
 }
