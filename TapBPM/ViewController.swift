@@ -147,7 +147,7 @@ class ViewController: UIViewController {
         }
     }
     
-    func metronomeTick() {
+    @objc private func metronomeTick() {
         if (self.isMetronomeOn) {
             self.metronomePlayer?.play()
         }
