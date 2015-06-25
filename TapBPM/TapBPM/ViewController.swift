@@ -47,11 +47,32 @@ class ViewController: UIViewController {
             return nil
         }
         
-        var sum = 0
-        for sample in samples {
-            sum += sample
-        }
+        ///////////////////////////////////
+        // This is an intuitive jump from the for-in version, and is perfectly reasonable
+        // This is probably the preferred solution, in terms of readability. In real life, this is what we'd do.
+        ///////////////////////////////////
+
+        let sum = samples.reduce(0) { $0 + $1 }
         return sum/samples.count
+
+        ///////////////////////////////////
+        // But filter is more powerful than that. Math!
+        // (Literally math, that's a lot of multiplication and division: this is slower to execute)
+        ///////////////////////////////////
+        
+        //        let avg = samples.reduce((0.0, 0.0), combine: { (accAndCount: (acc: Double, count: Double), next) -> (Double, Double) in
+        //            let newCount = accAndCount.count + 1.0
+        //            let newAcc = accAndCount.acc * (newCount - 1.0)/newCount + Double(next)*1.0/newCount
+        //            return (newAcc, newCount)
+        //        })
+        //        return Int(avg.0)
+        
+        ///////////////////////////////////
+        // This is identical to the code above, but less verbose.
+        ///////////////////////////////////
+        
+        //        let avg = samples.reduce((0.0, 0.0)) { ($0.0 * $0.1/($0.1 + 1.0) + Double($1)*1.0/($0.1 + 1.0), ($0.1 + 1.0))}.0
+        //        return Int(avg)
     }
 }
 
