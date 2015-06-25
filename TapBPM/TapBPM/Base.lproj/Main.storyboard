@@ -15,12 +15,27 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to Start" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xYL-HJ-uOz">
+                                <rect key="frame" x="185" y="269.5" width="229" height="60"/>
+                                <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="50"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="xYL-HJ-uOz" secondAttribute="centerX" id="jHT-yv-CVg"/>
+                            <constraint firstAttribute="centerY" secondItem="xYL-HJ-uOz" secondAttribute="centerY" constant="0.5" id="m6y-Ie-elF"/>
+                        </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="VFE-ZA-dCH" appends="YES" id="Gkd-o6-wNy"/>
                         </connections>
                     </view>
+                    <connections>
+                        <outlet property="averageLabel" destination="xYL-HJ-uOz" id="JP2-4P-BHy"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="VFE-ZA-dCH">
