@@ -17,17 +17,29 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to Start" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xYL-HJ-uOz">
-                                <rect key="frame" x="185" y="269.5" width="229" height="60"/>
+                                <rect key="frame" x="185" y="270" width="229" height="60"/>
                                 <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="50"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6uO-ZA-Php">
+                                <rect key="frame" x="274.5" y="556" width="51" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Reset">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="reset:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9g7-w8-LiQ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
+                            <constraint firstAttribute="centerX" secondItem="6uO-ZA-Php" secondAttribute="centerX" id="4cv-At-umK"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="6uO-ZA-Php" secondAttribute="bottom" constant="8" id="d0m-B1-aqd"/>
                             <constraint firstAttribute="centerX" secondItem="xYL-HJ-uOz" secondAttribute="centerX" id="jHT-yv-CVg"/>
-                            <constraint firstAttribute="centerY" secondItem="xYL-HJ-uOz" secondAttribute="centerY" constant="0.5" id="m6y-Ie-elF"/>
+                            <constraint firstAttribute="centerY" secondItem="xYL-HJ-uOz" secondAttribute="centerY" id="m6y-Ie-elF"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="VFE-ZA-dCH" appends="YES" id="Gkd-o6-wNy"/>

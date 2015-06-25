@@ -25,6 +25,12 @@ class ViewController: UIViewController {
         updateAverage()
     }
 
+    @IBAction func reset(sender: UIButton) {
+        self.samples = []
+        self.lastTapTime = nil
+        self.averageLabel.text = "Tap to Start"
+    }
+    
     private func collectBPMSample(now : NSDate, optionalLastSample : NSDate?) {
         if let lastSample = optionalLastSample {
             let bpm = Int(60/now.timeIntervalSinceDate(lastSample))
