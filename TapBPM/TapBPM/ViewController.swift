@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import QuartzCore
 
 class ViewController: UIViewController {
     
@@ -23,12 +24,21 @@ class ViewController: UIViewController {
     @IBAction func didTap(sender: UITapGestureRecognizer) {
         collectBPMSample(NSDate(), optionalLastSample: self.lastTapTime)
         updateAverage()
+        showTouch(sender.locationInView(self.view))
     }
 
     @IBAction func reset(sender: UIButton) {
         self.samples = []
         self.lastTapTime = nil
         self.averageLabel.text = "Tap to Start"
+    }
+    
+    private func showTouch(touchLocation : CGPoint) {
+        let circle = UIView(frame: CGRectMake(0,0,50,50))
+        circle.center = touchLocation
+        circle.layer.cornerRadius = circle.frame.size.width/2
+        circle.backgroundColor = UIColor.redColor()
+        self.view.insertSubview(circle, belowSubview: averageLabel)
     }
     
     private func collectBPMSample(now : NSDate, optionalLastSample : NSDate?) {
