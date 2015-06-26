@@ -16,11 +16,18 @@ class ViewController: UIViewController {
     private var samples:[Int] = []
     private var lastTapTime:NSDate?
     
+}
+
+//MARK: UIViewController
+extension ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
+}
 
+//MARK: Button Actions
+extension ViewController {
     @IBAction func didTap(sender: UITapGestureRecognizer) {
         collectBPMSample(NSDate(), optionalLastSample: self.lastTapTime)
         updateAverage()
@@ -32,7 +39,10 @@ class ViewController: UIViewController {
         self.lastTapTime = nil
         self.averageLabel.text = "Tap to Start"
     }
-    
+}
+
+//MARK: Touch Visuals
+extension ViewController {
     private func showTouch(touchLocation : CGPoint) {
         let circle = UIView(frame: CGRectMake(0,0,50,50))
         circle.center = touchLocation
@@ -51,7 +61,10 @@ class ViewController: UIViewController {
             circle.removeFromSuperview()
         }
     }
-    
+}
+
+//MARK: Averaging
+extension ViewController {
     private func collectBPMSample(now : NSDate, optionalLastSample : NSDate?) {
         if let lastSample = optionalLastSample {
             let bpm = Int(60/now.timeIntervalSinceDate(lastSample))
