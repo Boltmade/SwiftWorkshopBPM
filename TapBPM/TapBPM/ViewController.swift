@@ -8,6 +8,7 @@
 
 import UIKit
 import QuartzCore
+import AVFoundation
 
 enum Color {
     case Red, Blue, Random(Double)
@@ -44,6 +45,11 @@ class ViewController: UIViewController {
     private var samples:[Int] = []
     private var lastTapTime:NSDate?
     private var selectedColor = Color.color(0)
+    
+    // Sound originally from http://www.freesfx.co.uk/sfx/dripping
+    let metronomeSoundUrl = NSBundle.mainBundle().URLForResource("WaterDrop", withExtension: "mp3")
+    var metronomePlayer : AVAudioPlayer?
+    var metronomeRepeatTimer : NSTimer?
 }
 
 //MARK: UIViewController
@@ -61,16 +67,38 @@ extension ViewController {
         collectBPMSample(NSDate(), optionalLastSample: self.lastTapTime)
         updateAverage()
         showTouch(sender.locationInView(self.view))
+        updateMetronome()
     }
 
     @IBAction func reset(sender: UIButton) {
         self.samples = []
         self.lastTapTime = nil
         updateAverage()
+        self.metronomeRepeatTimer?.invalidate()
+        self.metronomeRepeatTimer = nil
     }
     
     @IBAction func colorPicked(sender: UISegmentedControl) {
         self.selectedColor = Color.color(sender.selectedSegmentIndex)
+    }
+}
+
+//MARK: Audio
+extension ViewController {
+    private func updateMetronome() {
+        self.metronomeRepeatTimer?.invalidate()
+        self.metronomeRepeatTimer = nil
+        metronomeTick()
+        
+        if let averageBPM = averageBPM(self.samples) {
+            let metronomeTimerInterval = NSTimeInterval(60.0/Double(averageBPM))
+            self.metronomeRepeatTimer = NSTimer.scheduledTimerWithTimeInterval(metronomeTimerInterval, target: self, selector: "metronomeTick", userInfo: nil, repeats: true)
+        }
+    }
+    
+    @objc private func metronomeTick() {
+        self.metronomePlayer = AVAudioPlayer(contentsOfURL: self.metronomeSoundUrl, error: nil)
+        self.metronomePlayer?.play()
     }
 }
 

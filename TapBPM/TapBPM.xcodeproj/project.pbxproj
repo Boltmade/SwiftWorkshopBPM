@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5E4208361B3D8DE400A51D7F /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4208351B3D8DE400A51D7F /* UIColorExtension.swift */; };
+		5E4208381B3DE03700A51D7F /* WaterDrop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5E4208371B3DE03700A51D7F /* WaterDrop.mp3 */; };
 		5E539BED1B3B5474006A1896 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E539BEC1B3B5474006A1896 /* AppDelegate.swift */; };
 		5E539BEF1B3B5474006A1896 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E539BEE1B3B5474006A1896 /* ViewController.swift */; };
 		5E539BF21B3B5474006A1896 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E539BF01B3B5474006A1896 /* Main.storyboard */; };
@@ -28,6 +29,7 @@
 
 /* Begin PBXFileReference section */
 		5E4208351B3D8DE400A51D7F /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		5E4208371B3DE03700A51D7F /* WaterDrop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = WaterDrop.mp3; sourceTree = "<group>"; };
 		5E539BE71B3B5474006A1896 /* TapBPM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TapBPM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E539BEB1B3B5474006A1896 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5E539BEC1B3B5474006A1896 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 		5E539BE91B3B5474006A1896 /* TapBPM */ = {
 			isa = PBXGroup;
 			children = (
+				5E4208371B3DE03700A51D7F /* WaterDrop.mp3 */,
 				5E539BEC1B3B5474006A1896 /* AppDelegate.swift */,
 				5E539BEE1B3B5474006A1896 /* ViewController.swift */,
 				5E539BF01B3B5474006A1896 /* Main.storyboard */,
@@ -198,6 +201,7 @@
 				5E539BF21B3B5474006A1896 /* Main.storyboard in Resources */,
 				5E539BF71B3B5474006A1896 /* LaunchScreen.xib in Resources */,
 				5E539BF41B3B5474006A1896 /* Images.xcassets in Resources */,
+				5E4208381B3DE03700A51D7F /* WaterDrop.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
