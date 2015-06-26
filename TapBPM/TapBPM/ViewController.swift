@@ -9,13 +9,41 @@
 import UIKit
 import QuartzCore
 
+enum Color {
+    case Red, Blue, Random(Double)
+    func color() -> UIColor {
+        switch (self) {
+        case .Red:
+            return UIColor.redColor()
+        case .Blue:
+            return UIColor.blueColor()
+        case .Random(let alpha):
+            return UIColor.randomColor(CGFloat(alpha))
+        }
+    }
+    
+    static func color(index : Int) -> Color {
+        switch (index) {
+        case 0:
+            return .Red
+        case 1:
+            return .Blue
+        case 2:
+            return .Random(1.0)
+        default:
+            return .Random(0.2)
+        }
+    }
+}
+
+
 class ViewController: UIViewController {
     
     @IBOutlet weak var averageLabel: UILabel!
     
     private var samples:[Int] = []
     private var lastTapTime:NSDate?
-    
+    private var selectedColor = Color.color(0)
 }
 
 //MARK: UIViewController
@@ -39,6 +67,10 @@ extension ViewController {
         self.lastTapTime = nil
         self.averageLabel.text = "Tap to Start"
     }
+    
+    @IBAction func colorPicked(sender: UISegmentedControl) {
+        self.selectedColor = Color.color(sender.selectedSegmentIndex)
+    }
 }
 
 //MARK: Touch Visuals
@@ -47,7 +79,7 @@ extension ViewController {
         let circle = UIView(frame: CGRectMake(0,0,50,50))
         circle.center = touchLocation
         circle.layer.cornerRadius = circle.frame.size.width/2
-        circle.backgroundColor = UIColor.randomColor(0.2)
+        circle.backgroundColor = self.selectedColor.color()
         self.view.insertSubview(circle, belowSubview: averageLabel)
 
         UIView.animateWithDuration(
