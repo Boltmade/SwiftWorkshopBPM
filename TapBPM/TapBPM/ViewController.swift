@@ -37,7 +37,7 @@ class ViewController: UIViewController {
         let circle = UIView(frame: CGRectMake(0,0,50,50))
         circle.center = touchLocation
         circle.layer.cornerRadius = circle.frame.size.width/2
-        circle.backgroundColor = UIColor.redColor()
+        circle.backgroundColor = UIColor.randomColor(0.2)
         self.view.insertSubview(circle, belowSubview: averageLabel)
 
         UIView.animateWithDuration(
