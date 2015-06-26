@@ -10,15 +10,15 @@ import UIKit
 import QuartzCore
 
 enum Color {
-    case Red, Blue, Random
+    case Red, Blue, Random(Double)
     func color() -> UIColor {
         switch (self) {
         case .Red:
             return UIColor.redColor()
         case .Blue:
             return UIColor.blueColor()
-        case .Random:
-            return UIColor.randomColor(0.2)
+        case .Random(let alpha):
+            return UIColor.randomColor(CGFloat(alpha))
         }
     }
     
@@ -28,8 +28,10 @@ enum Color {
             return .Red
         case 1:
             return .Blue
+        case 2:
+            return .Random(1.0)
         default:
-            return .Random
+            return .Random(0.2)
         }
     }
 }
