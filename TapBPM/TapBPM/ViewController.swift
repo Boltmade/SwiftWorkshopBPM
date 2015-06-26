@@ -39,6 +39,17 @@ class ViewController: UIViewController {
         circle.layer.cornerRadius = circle.frame.size.width/2
         circle.backgroundColor = UIColor.redColor()
         self.view.insertSubview(circle, belowSubview: averageLabel)
+
+        UIView.animateWithDuration(
+            2.0,
+            delay: 0.0,
+            options: UIViewAnimationOptions.CurveEaseOut | UIViewAnimationOptions.AllowUserInteraction,
+            animations: { () -> Void in
+                circle.transform = CGAffineTransformMakeScale(10, 10)
+                circle.alpha = 0
+        }) { (completed) -> Void in
+            circle.removeFromSuperview()
+        }
     }
     
     private func collectBPMSample(now : NSDate, optionalLastSample : NSDate?) {
