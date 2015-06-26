@@ -51,6 +51,7 @@ extension ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        updateAverage()
     }
 }
 
@@ -65,7 +66,7 @@ extension ViewController {
     @IBAction func reset(sender: UIButton) {
         self.samples = []
         self.lastTapTime = nil
-        self.averageLabel.text = "Tap to Start"
+        updateAverage()
     }
     
     @IBAction func colorPicked(sender: UISegmentedControl) {
@@ -106,11 +107,25 @@ extension ViewController {
     }
     
     private func updateAverage() {
-        let optionalAverage = averageBPM(self.samples)
-        if let average = optionalAverage {
-            self.averageLabel.text = String(average)
-        } else {
-            self.averageLabel.text = "First Beat"
+        let labelMetadata = self.labelMetadata()
+        averageLabel.text = labelMetadata.text
+        averageLabel.textColor = labelMetadata.textColor
+        averageLabel.font = UIFont(name: "HelveticaNeue-UltraLight", size: CGFloat(labelMetadata.fontSize))
+    }
+    
+    private func labelMetadata() -> (text: String, textColor: UIColor, fontSize: Int) {
+        let currentBPM = averageBPM(self.samples)
+        switch ((currentBPM, self.lastTapTime)) {
+        case (.None, .None):
+            return ("Tap to Start", UIColor.blackColor(), 50)
+        case (.None, let previous):
+            return ("First Beat", UIColor.blackColor(), 50)
+        case (.Some(0...60), let previous):
+            return (String(currentBPM!), UIColor.greenColor(), 70)
+        case (.Some(61...120), let previous):
+            return (String(currentBPM!), UIColor.orangeColor(), 90)
+        default:
+            return (String(currentBPM!), UIColor.purpleColor(), 110)
         }
     }
     
