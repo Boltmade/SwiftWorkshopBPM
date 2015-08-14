@@ -4,7 +4,7 @@ This is a small demo application to get you started using some of the features o
 
 The intended use of this repository is for workshop participants to check their solutions to the steps as we work (if desired), skip a step if they get stuck and want to move on, or to have a guide to continue working on steps after we run out of time.
 
-We do not recommend going through the folling steps before the workshop: you can, but then you will be bored during the workshop :)
+We do not recommend going through the following steps before the workshop: you can, but then you will be bored during the workshop :)
 
 Here are the tags corresponding to each step:
 
