@@ -42,8 +42,9 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var averageLabel: UILabel!
     
-    private var samples:[Int] = []
-    private var lastTapTime:NSDate?
+    private var samplesAccumulator = 0
+    private var samplesCount = -1
+    private var lastTapTime: NSDate?
     private var selectedColor = Color.color(0)
     
     // Sound originally from http://www.freesfx.co.uk/sfx/dripping
@@ -64,14 +65,15 @@ extension ViewController {
 //MARK: Button Actions
 extension ViewController {
     @IBAction func didTap(sender: UITapGestureRecognizer) {
-        collectBPMSample(NSDate(), optionalLastSample: self.lastTapTime)
+        collectBPMSample()
         updateAverage()
         showTouch(sender.locationInView(self.view))
         updateMetronome()
     }
 
     @IBAction func reset(sender: UIButton) {
-        self.samples = []
+        self.samplesAccumulator = 0
+        self.samplesCount = -1
         self.lastTapTime = nil
         updateAverage()
         self.metronomeRepeatTimer?.invalidate()
@@ -90,7 +92,8 @@ extension ViewController {
         self.metronomeRepeatTimer = nil
         metronomeTick()
         
-        if let averageBPM = averageBPM(self.samples) {
+        if self.samplesCount > 0 {
+            let averageBPM = samplesAccumulator / samplesCount
             let metronomeTimerInterval = NSTimeInterval(60.0/Double(averageBPM))
             self.metronomeRepeatTimer = NSTimer.scheduledTimerWithTimeInterval(metronomeTimerInterval, target: self, selector: "metronomeTick", userInfo: nil, repeats: true)
         }
@@ -126,10 +129,15 @@ extension ViewController {
 
 //MARK: Averaging
 extension ViewController {
-    private func collectBPMSample(now : NSDate, optionalLastSample : NSDate?) {
-        if let lastSample = optionalLastSample {
+    private func collectBPMSample() {
+        let now = NSDate()
+        if let lastSample = self.lastTapTime {
             let bpm = Int(60/now.timeIntervalSinceDate(lastSample))
-            self.samples += [bpm]
+            self.samplesAccumulator += bpm
+            self.samplesCount++
+        } else {
+            // First beat
+            self.samplesCount = 0
         }
         self.lastTapTime = now
     }
@@ -142,52 +150,22 @@ extension ViewController {
     }
     
     private func labelMetadata() -> (text: String, textColor: UIColor, fontSize: Int) {
-        let currentBPM = averageBPM(self.samples)
-        switch ((currentBPM, self.lastTapTime)) {
-        case (.None, .None):
+        switch self.samplesCount {
+        case -1:
             return ("Tap to Start", UIColor.blackColor(), 50)
-        case (.None, let previous):
+        case 0:
             return ("First Beat", UIColor.blackColor(), 50)
-        case (.Some(0...60), let previous):
-            return (String(currentBPM!), UIColor.greenColor(), 70)
-        case (.Some(61...120), let previous):
-            return (String(currentBPM!), UIColor.orangeColor(), 90)
         default:
-            return (String(currentBPM!), UIColor.purpleColor(), 110)
+            let currentBPM = self.samplesAccumulator / self.samplesCount
+            switch currentBPM {
+            case 0...60:
+                return (String(currentBPM), UIColor.greenColor(), 70)
+            case 61...120:
+                return (String(currentBPM), UIColor.orangeColor(), 90)
+            default:
+                return (String(currentBPM), UIColor.purpleColor(), 110)
+            }
         }
-    }
-    
-    private func averageBPM(samples: [Int]) -> Int? {
-        if (samples.count == 0) {
-            return nil
-        }
-        
-        ///////////////////////////////////
-        // This is an intuitive jump from the for-in version, and is perfectly reasonable
-        // This is probably the preferred solution, in terms of readability. In real life, this is what we'd do.
-        ///////////////////////////////////
-
-        let sum = samples.reduce(0) { $0 + $1 }
-        return sum/samples.count
-
-        ///////////////////////////////////
-        // But filter is more powerful than that. Math!
-        // (Literally math, that's a lot of multiplication and division: this is slower to execute)
-        ///////////////////////////////////
-        
-        //        let avg = samples.reduce((0.0, 0.0), combine: { (accAndCount: (acc: Double, count: Double), next) -> (Double, Double) in
-        //            let newCount = accAndCount.count + 1.0
-        //            let newAcc = accAndCount.acc * (newCount - 1.0)/newCount + Double(next)*1.0/newCount
-        //            return (newAcc, newCount)
-        //        })
-        //        return Int(avg.0)
-        
-        ///////////////////////////////////
-        // This is identical to the code above, but less verbose.
-        ///////////////////////////////////
-        
-        //        let avg = samples.reduce((0.0, 0.0)) { ($0.0 * $0.1/($0.1 + 1.0) + Double($1)*1.0/($0.1 + 1.0), ($0.1 + 1.0))}.0
-        //        return Int(avg)
     }
 }
 
